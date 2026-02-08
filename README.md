@@ -46,7 +46,7 @@ python main.py scanme.nmap.org
 
 ### Scan de Range de Portas
 ```bash
-python main.py 192.168.1.1 -p 1-1000
+python main.py (ip) -p 1-1000
 ```
 
 ### Scan de Portas Específicas
