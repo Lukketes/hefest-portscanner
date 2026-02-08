@@ -8,7 +8,7 @@ Um scanner de portas profissional e completo desenvolvido em Python para reconhe
 - ✅ **Banner Grabbing**: Captura informações dos serviços rodando nas portas
 - ✅ **Service Detection**: Identifica serviços automaticamente
 - ✅ **Risk Assessment**: Avalia o nível de risco de cada porta exposta
-- ✅ **Multiple Report Formats**: Exporta em JSON, CSV e TXT
+- ✅ **Multiple Report Formats**: Exporta em JSON e TXT
 - ✅ **Security Recommendations**: Fornece dicas de segurança para cada serviço
 - ✅ **Beautiful CLI**: Interface colorida e progress bars
 
@@ -46,7 +46,7 @@ python main.py scanme.nmap.org
 
 ### Scan de Range de Portas
 ```bash
-python main.py 192.168.1.1 -p 1-1000
+python main.py (ip) -p 1-1000
 ```
 
 ### Scan de Portas Específicas
@@ -129,7 +129,7 @@ hefest/
 ├── service_detector.py # Detecção e categorização de serviços
 ├── report_generator.py # Geração de relatórios (JSON, CSV, TXT)
 ├── main.py            # Interface CLI principal
-├── requirements.txt   # Dependências
+├── requiriments.txt   # Dependências
 └── README.md         # Esta documentação
 ```
 
