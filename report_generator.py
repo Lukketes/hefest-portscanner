@@ -3,20 +3,22 @@ Report Generator Module
 
 Este módulo gera relatórios dos scans em diferentes formatos:
 - JSON: Para processamento automático e APIs
-- CSV: Para análise em Excel/planilhas
 - TXT: Relatório legível para humanos
 """
 
+import os
 import json
-import csv
 from datetime import datetime
 
 class ReportGenerator:
-    """Gera relatórios de scan em múltiplos formatos"""
-    
     def __init__(self):
         """Inicializa o gerador de relatórios"""
-        pass
+        # Define o diretório de resultados
+        self.results_dir = 'results'
+        
+        # Cria a pasta results se não existir
+        if not os.path.exists(self.results_dir):
+            os.makedirs(self.results_dir)
     
     def generate_json(self, scan_results, filename='scan_report.json'):
         """
@@ -35,6 +37,9 @@ class ReportGenerator:
             str: Caminho do arquivo gerado
         """
         try:
+            # Monta o caminho completo do arquivo
+            filepath = os.path.join(self.results_dir, filename)
+            
             # Adiciona timestamp ao relatório
             report = {
                 'generated_at': datetime.now().isoformat(),
@@ -42,53 +47,13 @@ class ReportGenerator:
             }
             
             # Salva com indentação bonita (pretty print)
-            with open(filename, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding='utf-8') as f:
                 json.dump(report, f, indent=4, ensure_ascii=False)
             
-            return filename
+            return filepath
             
         except Exception as e:
             print(f"Erro ao gerar JSON: {e}")
-            return None
-    
-    def generate_csv(self, scan_results, filename='scan_report.csv'):
-        """
-        Gera relatório em formato CSV
-        
-        CSV é ótimo para:
-        - Análise em Excel/Google Sheets
-        - Importação em bancos de dados
-        - Visualização de dados
-        
-        Args:
-            scan_results (dict): Resultados do scan
-            filename (str): Nome do arquivo de saída
-            
-        Returns:
-            str: Caminho do arquivo gerado
-        """
-        try:
-            with open(filename, 'w', newline='', encoding='utf-8') as f:
-                writer = csv.writer(f)
-                
-                # Cabeçalho
-                writer.writerow(['Port', 'Service', 'Banner', 'Risk Level', 'Category'])
-                
-                # Dados das portas abertas
-                if 'port_details' in scan_results:
-                    for port_info in scan_results['port_details']:
-                        writer.writerow([
-                            port_info.get('port', 'N/A'),
-                            port_info.get('service', 'N/A'),
-                            port_info.get('banner', 'N/A')[:50],  # Limita banner a 50 chars
-                            port_info.get('risk_level', 'N/A'),
-                            port_info.get('category', 'N/A')
-                        ])
-            
-            return filename
-            
-        except Exception as e:
-            print(f"Erro ao gerar CSV: {e}")
             return None
     
     def generate_text(self, scan_results, filename='scan_report.txt'):
@@ -108,7 +73,10 @@ class ReportGenerator:
             str: Caminho do arquivo gerado
         """
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
+            # Monta o caminho completo do arquivo
+            filepath = os.path.join(self.results_dir, filename)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
                 # Cabeçalho do relatório
                 f.write("="*70 + "\n")
                 f.write("PORT SCANNER REPORT\n".center(70))
@@ -156,7 +124,7 @@ class ReportGenerator:
                 f.write("End of Report\n")
                 f.write("="*70 + "\n")
             
-            return filename
+            return filepath
             
         except Exception as e:
             print(f"Erro ao gerar TXT: {e}")
@@ -220,7 +188,6 @@ class ReportGenerator:
         
         # Gera cada formato
         files['json'] = self.generate_json(scan_results, f"{base_filename}.json")
-        files['csv'] = self.generate_csv(scan_results, f"{base_filename}.csv")
         files['txt'] = self.generate_text(scan_results, f"{base_filename}.txt")
         
         return files

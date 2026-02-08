@@ -37,7 +37,6 @@ class PortScannerCLI:
         self.reporter = ReportGenerator()
     
     def print_banner(self):
-        """Imprime o banner ASCII do programa (fica legal!)"""
         banner = f"""
 {Fore.CYAN}╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
