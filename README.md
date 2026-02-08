@@ -8,7 +8,7 @@ Um scanner de portas profissional e completo desenvolvido em Python para reconhe
 - ✅ **Banner Grabbing**: Captura informações dos serviços rodando nas portas
 - ✅ **Service Detection**: Identifica serviços automaticamente
 - ✅ **Risk Assessment**: Avalia o nível de risco de cada porta exposta
-- ✅ **Multiple Report Formats**: Exporta em JSON, CSV e TXT
+- ✅ **Multiple Report Formats**: Exporta em JSON e TXT
 - ✅ **Security Recommendations**: Fornece dicas de segurança para cada serviço
 - ✅ **Beautiful CLI**: Interface colorida e progress bars
 
