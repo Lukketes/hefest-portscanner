@@ -79,16 +79,16 @@ class ReportGenerator:
             with open(filepath, 'w', encoding='utf-8') as f:
                 # Cabeçalho do relatório
                 f.write("="*70 + "\n")
-                f.write("PORT SCANNER REPORT\n".center(70))
+                f.write("HefestPortsScan\n".center(70))
                 f.write("="*70 + "\n\n")
                 
                 # Informações gerais
-                f.write(f"Target: {scan_results.get('target', 'N/A')}\n")
-                f.write(f"IP Address: {scan_results.get('target_ip', 'N/A')}\n")
-                f.write(f"Scan Time: {scan_results.get('scan_time', 'N/A')}\n")
-                f.write(f"Duration: {scan_results.get('duration', 0):.2f} seconds\n")
-                f.write(f"Ports Scanned: {scan_results.get('ports_scanned', 0)}\n")
-                f.write(f"Open Ports Found: {scan_results.get('total_open', 0)}\n")
+                f.write(f"Alvo: {scan_results.get('target', 'N/A')}\n")
+                f.write(f"Endereço IP: {scan_results.get('target_ip', 'N/A')}\n")
+                f.write(f"Tempo de Scan: {scan_results.get('scan_time', 'N/A')}\n")
+                f.write(f"Duração: {scan_results.get('duration', 0):.2f} seconds\n")
+                f.write(f"Portas Scanneadas: {scan_results.get('ports_scanned', 0)}\n")
+                f.write(f"Portas abertas encontradas: {scan_results.get('total_open', 0)}\n")
                 f.write("\n" + "="*70 + "\n\n")
                 
                 # Detalhes das portas abertas
@@ -142,32 +142,32 @@ class ReportGenerator:
         """
         summary = []
         summary.append("\n" + "="*70)
-        summary.append("SCAN SUMMARY".center(70))
+        summary.append("SUMÁRIO DO SCAN".center(70))
         summary.append("="*70)
-        summary.append(f"\nTarget: {scan_results.get('target')} ({scan_results.get('target_ip')})")
-        summary.append(f"Duration: {scan_results.get('duration', 0):.2f}s")
-        summary.append(f"Ports Scanned: {scan_results.get('ports_scanned', 0)}")
-        summary.append(f"Open Ports: {scan_results.get('total_open', 0)}")
+        summary.append(f"\nAlvo: {scan_results.get('target')} ({scan_results.get('target_ip')})")
+        summary.append(f"Duração: {scan_results.get('duration', 0):.2f}s")
+        summary.append(f"Portas Scaneadas: {scan_results.get('ports_scanned', 0)}")
+        summary.append(f"Portas Abertas: {scan_results.get('total_open', 0)}")
         
         if scan_results.get('total_open', 0) > 0:
-            summary.append("\nOpen Ports:")
+            summary.append("\nPortas Abertas:")
             if 'port_details' in scan_results:
                 for port_info in scan_results['port_details']:
                     risk = port_info.get('risk_level', 'UNKNOWN')
                     # Adiciona emoji baseado no risco
                     risk_emoji = {
-                        'HIGH': '🔴',
-                        'MEDIUM': '🟡',
-                        'LOW': '🟢',
-                        'UNKNOWN': '⚪'
+                        'ALTO': '🔴',
+                        'MÉDIO': '🟡',
+                        'BAIXO': '🟢',
+                        'DESCONHECIDO': '⚪'
                     }.get(risk, '⚪')
                     
                     summary.append(
-                        f"  {risk_emoji} Port {port_info.get('port')}: "
+                        f"  {risk_emoji} Porta {port_info.get('port')}: "
                         f"{port_info.get('service', 'Unknown')} [{risk} RISK]"
                     )
         else:
-            summary.append("\n✅ No open ports found - Target appears to be well secured!")
+            summary.append("\n✅ Nenhuma porta aberta encontrada, o alvo parece estar bem protegido!")
         
         summary.append("\n" + "="*70 + "\n")
         

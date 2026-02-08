@@ -117,9 +117,9 @@ class PortScannerCLI:
         # Se não especificou portas, usa as comuns
         if ports is None:
             ports = PortScanner.COMMON_PORTS
-            print(f"{Fore.YELLOW}[*] Scanning common ports...{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[*] Scanneando portas comuns...{Style.RESET_ALL}")
         else:
-            print(f"{Fore.YELLOW}[*] Scanning {len(ports)} ports...{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[*] Scanneando {len(ports)} portas...{Style.RESET_ALL}")
         
         # Progress bar com tqdm
         progress_bar = tqdm(total=len(ports), desc="Scanning", unit="port", 
@@ -135,8 +135,8 @@ class PortScannerCLI:
         
         # Se encontrou portas abertas, faz banner grabbing e detecção de serviços
         if scan_results['open_ports']:
-            print(f"\n{Fore.GREEN}[+] Found {len(scan_results['open_ports'])} open ports!{Style.RESET_ALL}")
-            print(f"{Fore.YELLOW}[*] Performing service detection...{Style.RESET_ALL}")
+            print(f"\n{Fore.GREEN}[+] Encontramos {len(scan_results['open_ports'])} portas abertas!{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[*] Executando detecção de serviço...{Style.RESET_ALL}")
             
             port_details = []
             
@@ -171,10 +171,9 @@ class PortScannerCLI:
         return scan_results
     
     def main(self):
-        """Função principal da CLI"""
         # Parser de argumentos
         parser = argparse.ArgumentParser(
-            description='Advanced Port Scanner - Professional network reconnaissance tool',
+            description='Advanced Port Scanner',
             epilog='Example: python main.py scanme.nmap.org -p 1-1000 -o report'
         )
         
@@ -197,7 +196,7 @@ class PortScannerCLI:
         # Processa portas
         if args.full:
             ports = list(range(1, 65536))
-            print(f"{Fore.RED}[!] WARNING: Full port scan (65535 ports) will take a long time!{Style.RESET_ALL}")
+            print(f"{Fore.RED}[!] WARNING: Scannear todas as portas (65535 ports) pode demorar!{Style.RESET_ALL}")
         else:
             ports = self.parse_ports(args.ports)
         
@@ -227,18 +226,16 @@ class PortScannerCLI:
                     # Gera formato específico
                     if args.format == 'json':
                         filepath = self.reporter.generate_json(results, f"{args.output}.json")
-                    elif args.format == 'csv':
-                        filepath = self.reporter.generate_csv(results, f"{args.output}.csv")
                     else:  # txt
                         filepath = self.reporter.generate_text(results, f"{args.output}.txt")
                     
-                    print(f"{Fore.GREEN}[+] Report saved: {filepath}{Style.RESET_ALL}")
+                    print(f"{Fore.GREEN}[+] Report salvo: {filepath}{Style.RESET_ALL}")
             
         except KeyboardInterrupt:
-            print(f"\n\n{Fore.RED}[!] Scan interrupted by user.{Style.RESET_ALL}")
+            print(f"\n\n{Fore.RED}[!] Scan interrompido pelo usuario.{Style.RESET_ALL}")
             sys.exit(1)
         except Exception as e:
-            print(f"\n{Fore.RED}[!] Error: {e}{Style.RESET_ALL}")
+            print(f"\n{Fore.RED}[!] Erro: {e}{Style.RESET_ALL}")
             sys.exit(1)
 
 # Ponto de entrada do programa
