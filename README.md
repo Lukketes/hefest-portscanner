@@ -129,7 +129,7 @@ hefest/
 ├── service_detector.py # Detecção e categorização de serviços
 ├── report_generator.py # Geração de relatórios (JSON, CSV, TXT)
 ├── main.py            # Interface CLI principal
-├── requirements.txt   # Dependências
+├── requiriments.txt   # Dependências
 └── README.md         # Esta documentação
 ```
 
